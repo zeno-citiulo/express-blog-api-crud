@@ -87,3 +87,22 @@ function create(req, res) {
 
   return res.status(201).json(newPost);
 }
+
+function update(req, res) {
+  const id = parseInt(req.params.id, 10);
+  const postIndex = posts.findIndex((p) => p.id === id);
+
+  if (postIndex === -1) {
+    return res.status(404).json({ error: "Post non trovato" });
+  }
+
+ 
+  const updatedPost = {
+    ...posts[postIndex],
+    ...req.body,
+    id: posts[postIndex].id,
+  };
+
+  posts[postIndex] = updatedPost;
+  return res.json(updatedPost);
+}
