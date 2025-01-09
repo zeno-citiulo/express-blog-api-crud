@@ -1,5 +1,12 @@
 const posts = require("../data/posts");
 
+function create(req, res) {
+  console.log("Dati ricevuti:", req.body);
+
+  const newPost = req.body;
+  res.status(201).json(newPost);
+}
+
 function index(req, res) {
   return res.json(posts);
 }
@@ -66,3 +73,17 @@ module.exports = {
   update,
   destroy,
 };
+
+function create(req, res) {
+  
+  console.log("Dati ricevuti:", req.body);
+  const newPost = req.body;
+
+  newPost.id = posts.length
+    ? posts[posts.length - 1].id + 1
+    : 1;
+
+  posts.push(newPost);
+
+  return res.status(201).json(newPost);
+}
